@@ -1,46 +1,60 @@
 class SummaryRanges {
-    // set to store the addNumbers.
-    set<int> values;
+    vector<vector<int>> data;
     
 public:
-    SummaryRanges() { }
-    
-    void addNum(int value) {
-        // whatever value is there, push onto the set
-        values.insert(value);  // Tc - O(logn)
+    SummaryRanges() {
+        
     }
     
-    vector<vector<int>> getIntervals() {    // Tc - O(N)
-        // If our container is empty, we return empty vector.
-        if(values.empty())
-            return {};
-        
-        // answer array
-        vector<vector<int>> intervals;
-        
-        // Starting interval initialization
-        int left = -1, right = -1;
-        
-        for(int value : values) {
-            // Update left and right with the 1st value that comes
-            if(left < 0) {
-                left = right = value;
-            }
-            
-            // If right + 1 becomes = value, update right
-            else if(value == right + 1) {
-                right = value;
-            }
-            
-            // else push interval into ans array and update left and right
-            else {
-                intervals.push_back({left, right});
-                left = right = value;
-            }
+    void addNum(int value) {
+        vector<int> interval{value, value};
+        if (data.empty()) {
+            data.push_back(interval);
+            return;
         }
         
-        intervals.push_back({left, right});   // Tc - O(logn) + O(n) , SC - O(N)
-        return intervals;
+        int i = 0;
+        for (; i < data.size(); ++i)
+            if (data[i][0] > value) 
+                break;
+        
+        if (i == 0) {
+          if (value + 1 == data[i][0]) 
+              data[i][0] = value;
+          else 
+              data.insert(data.begin(), interval);
+        } 
+        else {
+          if (i == data.size()) {
+            if (data[i - 1][1] + 1 == value) 
+                data[i - 1][1] = value;
+            else if (data[i - 1][1] < value) 
+                data.push_back(interval);
+          } 
+          else {
+            if (data[i - 1][1] < value) {
+              if (data[i - 1][1] + 1 == value) {
+                if (data[i][0] == value + 1) {
+                  data[i - 1][1] = data[i][1];
+                  data.erase(data.begin() + i);
+                } 
+                else {
+                  data[i - 1][1] = value;
+                }
+              } 
+              else {
+                if (data[i][0] == value + 1) 
+                    data[i][0] = value;
+                else 
+                    data.insert(data.begin() + i, interval);
+              }
+            }
+          }
+        }
+    }
+    
+    vector<vector<int>> getIntervals() {
+        return data;
     }
 };
 
