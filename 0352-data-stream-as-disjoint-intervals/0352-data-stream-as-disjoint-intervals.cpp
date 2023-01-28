@@ -7,10 +7,10 @@ public:
     
     void addNum(int value) {
         // whatever value is there, push onto the set
-        values.insert(value);
+        values.insert(value);  // Tc - O(logn)
     }
     
-    vector<vector<int>> getIntervals() {
+    vector<vector<int>> getIntervals() {    // Tc - O(N)
         // If our container is empty, we return empty vector.
         if(values.empty())
             return {};
@@ -39,7 +39,7 @@ public:
             }
         }
         
-        intervals.push_back({left, right});
+        intervals.push_back({left, right});   // Tc - O(logn) + O(n) , SC - O(N)
         return intervals;
     }
 };
