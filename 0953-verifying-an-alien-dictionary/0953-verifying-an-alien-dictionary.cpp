@@ -1,33 +1,19 @@
 class Solution {
-    unordered_map<char,int> mp;
+    unordered_map<char,char> mp;
     
 public:
-    bool compare(string &first, string &second) {
-        int m = first.length();
-        int n = second.length();
-        
-        for(int i = 0; i < min(m, n); i++) {
-            if(mp[first[i]] < mp[second[i]])
-                return true;
-            
-            else if(mp[first[i]] > mp[second[i]])
-                return false;
-        }
-        
-        if(n >= m) return true;
-        return false;
-    }
-    
     bool isAlienSorted(vector<string>& words, string order) {
-        for(int i = 0; i < order.length(); i++)
-            mp[order[i]] = i;
+        // mapping order string with abcde......z
+        for(int i = 0; i < size(order); i++)
+            mp[order[i]] = i + 'a';
         
-        int n = words.size();
-        
-        for(int i = 0; i < n - 1; i++) {
-            if(!compare(words[i], words[i + 1])) return false;
+        // Iterate over words array.
+        for(auto& word : words) {
+            // Iterate over particular word.
+            for(auto& c : word) c = mp[c];
         }
         
-        return true;
+        // is_sorted function is used to check if elements in a range are sorted.
+        return is_sorted(begin(words), end(words));
     }
 };
