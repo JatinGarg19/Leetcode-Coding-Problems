@@ -1,20 +1,20 @@
 class Solution {
 public:
     vector<int> shuffle(vector<int>& nums, int n) {
-        vector<int> result;
+        int first = 0, second = n, max = 1001;
         
-        int ptr1 = 0;
-        int ptr2 = n;
-        
-        while(ptr2 < 2*n) {
-            result.push_back(nums[ptr1]);
-            
-            result.push_back(nums[ptr2]);
-            
-            ptr1++;
-            ptr2++;
+        for(int i = 0; i < 2*n; i++) {
+            if(i % 2 == 0) {
+                nums[i] = (nums[first++] % max) * max + nums[i];
+            }
+            else {
+                nums[i] = (nums[second++] % max) * max + nums[i];
+            }
         }
         
-        return result;
+        for(int i = 0; i < 2*n; i++)
+            nums[i] /= max;
+        
+        return nums;  // TC -  ~O(N) , SC - O(1).
     }
 };
