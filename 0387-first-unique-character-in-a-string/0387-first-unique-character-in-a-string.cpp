@@ -1,20 +1,17 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        map<char, int> hmap;
+        int count[26] = {0};
         
-        for (int idx = 0; idx < s.size(); idx++) {
-            // Everytime the character appears in the string, add one to its count
-            hmap[s[idx]]++;
+        for(int i = 0; i < s.size(); i++) {
+            count[s[i] - 'a']++;
         }
         
-        // Traverse the string from the beginning...
-        for (int idx = 0; idx < s.size(); idx++) {
-            // If the count of the char is equal to 1, it is the first distinct                               character in the list.
-            if (hmap[s[idx]] == 1)
-                return idx;
+        for(int i = 0; i < s.size(); i++) {
+            if(count[s[i]-'a'] == 1)
+                return i;
         }
         
-        return -1;  
+        return -1;
     }
 };
