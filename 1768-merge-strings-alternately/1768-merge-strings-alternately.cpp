@@ -6,20 +6,16 @@ public:
         string s = "";
         
         while(i < n1 && j < n2) {
-            s.push_back(word1[i]);
-            i++;
-            s.push_back(word2[j]);
-            j++;
+            s.push_back(word1[i++]);
+            s.push_back(word2[j++]);
         }
         
         while(i < n1) {
-            s.push_back(word1[i]);
-            i++;
+            s.push_back(word1[i++]);
         }
         
         while(j < n2) {
-            s.push_back(word2[j]);
-            j++;
+            s.push_back(word2[j++]);
         }
         
         return s;
