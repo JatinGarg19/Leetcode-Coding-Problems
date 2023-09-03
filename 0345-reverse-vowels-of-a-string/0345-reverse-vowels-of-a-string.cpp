@@ -2,17 +2,17 @@ class Solution {
 public:
     string reverseVowels(string s) {
         set<char> vowels = {'a','e','i','o','u','A','E','I','O','U'};
-        stack<char> st;
+        int start = 0, end = s.size()-1;
         
-        for(char c : s) {
-            if(vowels.contains(c)) st.push(c);
-        }
-        
-        for(char &c : s) {
-            if(vowels.contains(c)) {
-                c = st.top();
-                st.pop();
-            }
+        while(start < end) {
+            while(start<end && !vowels.contains(s[start])) start++;
+            
+            while(start<end && !vowels.contains(s[end])) end--;
+            
+            swap(s[start], s[end]);
+            
+            start++;
+            end--;
         }
         
         return s;
