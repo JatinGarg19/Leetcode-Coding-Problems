@@ -1,13 +1,11 @@
 class Solution {
     public boolean increasingTriplet(int[] nums) {
-        int n = nums.length;
         // Size of array is smaller than 3, so triplet not possible.
-        if(n < 3) return false;
+        if(nums.length < 3) return false;
         
-        int left = Integer.MAX_VALUE;
-        int mid = Integer.MAX_VALUE;
+        int left = Integer.MAX_VALUE, mid = Integer.MAX_VALUE;
         
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < nums.length; i++) {
             // if nums[i]>mid, nums[i] is also > than left, means we have two elements smaller
             // than nums[i], so it satisfies triplet and we return true. 
             if(nums[i] > mid) return true;
