@@ -3,15 +3,14 @@ public:
     vector<int> countBits(int n) {
         vector<int> ans(n + 1);
         
-        for(int i = 0; i <= n; i++) {
-            int count = 0, num = i;
-            while(num > 0) {
-                if(num & 1) {
-                    count++;
-                }
-                num = num >> 1;
-            }
-            ans[i] = count;
+        if(n == 0) return {0};
+        
+        if(n == 1) return {0, 1};
+        
+        ans[0] = 0, ans[1] = 1;
+        
+        for(int i = 2; i <= n; i++) {
+            ans[i] = (i & 1) ? ans[i/2] + 1 : ans[i/2];
         }
         
         return ans;
